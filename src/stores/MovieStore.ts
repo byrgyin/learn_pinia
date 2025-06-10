@@ -1,33 +1,17 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue';
-
-interface Movie {
-  id: number;
-  original_title: string;
-  overview: string;
-  realise_date: string;
-  isWatched: boolean;
-}
+import { ref, computed,watch } from 'vue';
+import type {Movie} from "@/types/types.ts";
 
 export const useMovieStore = defineStore('MovieStore',()=> {
-  const movies = ref<Movie[]>([
-    {
-      id: 1,
-      original_title: 'Spider-Man',
-      overview: 'Overview',
-      realise_date: '2021-01-01',
-      isWatched: true,
-    },
-    {
-      id: 2,
-      original_title: 'Spider-Man-2',
-      overview: 'Overview',
-      realise_date: '2021-01-01',
-      isWatched: false,
-    },
-  ]);
+  const movies = ref<Movie[]>([]);
 
-  let activeTab = ref<number>(1);
+  let activeTab = ref<number>(2);
+
+  const moviesOnLocalStorage = localStorage.getItem('movies');
+
+  if(moviesOnLocalStorage){
+    movies.value = JSON.parse(moviesOnLocalStorage)._value;
+  }
 
   const watchMovies = computed(() => movies.value.filter((el)=> el.isWatched));
 
@@ -45,6 +29,14 @@ export const useMovieStore = defineStore('MovieStore',()=> {
   const deleteMovie = (id: number) => {
     movies.value = movies.value.filter((el) => el.id !== id);
   };
+
+  watch(
+    movies,
+    (newMovies) => {
+      localStorage.setItem('movies', JSON.stringify(newMovies));
+    },
+    { deep: true }
+  );
 
   return{
     movies,

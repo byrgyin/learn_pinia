@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {useMovieStore} from "@/stores/MovieStore.ts";
 import Movie from "@/components/movie.vue";
+import Search from "@/components/Search.vue";
 
 const movieStore = useMovieStore();
 console.log(movieStore.watchMovies)
@@ -30,6 +31,7 @@ console.log(movieStore.watchMovies)
     />
   </div>
   <div class="search" v-else>search</div>
+  <Search v-else/>
 </template>
 
 <style scoped>
