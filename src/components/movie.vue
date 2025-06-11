@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import {useMovieStore} from "@/stores/MovieStore.ts";
 import {useSearchStore} from "@/stores/SearchStore.ts";
+import type {Movie} from "@/types/types.ts";
 
 defineProps<{
-  movie: {
-    id: number;
-    original_title: string;
-    overview: string;
-    realise_date: string;
-    poster_path:string;
-    isWatched: boolean;
-  },
+  movie:Movie,
   isSearch:{
     type: Boolean,
     default: false
@@ -27,7 +21,7 @@ const searchStore = useSearchStore();
       <img :src="`https://media.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`"
            :alt="movie.original_title">
       <div class="movie-name">
-        {{ movie.original_title }} - {{ movie.realise_date }}
+        {{ movie.original_title }} - {{ movie.release_date }}
       </div>
     </div>
     <span>{{ movie.overview }}</span>

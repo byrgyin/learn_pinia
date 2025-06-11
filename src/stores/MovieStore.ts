@@ -8,12 +8,13 @@ export const useMovieStore = defineStore('MovieStore',()=> {
   let activeTab = ref<number>(2);
 
   const moviesOnLocalStorage = localStorage.getItem('movies');
-
   if(moviesOnLocalStorage){
-    movies.value = JSON.parse(moviesOnLocalStorage)._value;
+    movies.value = JSON.parse(moviesOnLocalStorage);
   }
 
-  const watchMovies = computed(() => movies.value.filter((el)=> el.isWatched));
+  const watchMovies = computed(() => movies.value.filter((el) => el.isWatched));
+
+  console.log(watchMovies);
 
   const totalCountMovies = computed(() => movies.value.length);
 

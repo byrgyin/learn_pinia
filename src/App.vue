@@ -17,7 +17,7 @@ console.log(movieStore.watchMovies)
     <button :class="['btn', {btn_green: movieStore.activeTab === 2}]" @click="movieStore.setActiveTab(2)">Search</button>
   </div>
   <div class="movies" v-if="movieStore.activeTab === 1">
-    <h3>Watched Movies: {{movieStore.watchMovies.length}}</h3>
+    <h3>Watched Movies: {{ movieStore.watchMovies.length }}</h3>
     <Movie
         v-for="movie in movieStore.watchMovies"
         :key="movie.id"
